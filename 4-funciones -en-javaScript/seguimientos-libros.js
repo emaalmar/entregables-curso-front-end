@@ -15,5 +15,4 @@ function mostrarLibrosLeidos() {
     ? `Libros leídos: ${librosLeidos.join(", ")}`
     : "Aun no has leido ningun libro.";
 }
-
 console.log(mostrarLibrosLeidos());
