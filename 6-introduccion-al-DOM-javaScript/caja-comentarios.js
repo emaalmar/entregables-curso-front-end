@@ -26,10 +26,10 @@ formulario.addEventListener("submit", function(event) {
     const mensaje = document.getElementById("msg").value;
 
 
-    if (mensaje.trim() === "") {
-        alert("No hay mensaje para enviar.");
-        return;
-    }
+    // if (mensaje.trim() === "") {
+    //     alert("No hay mensaje para enviar.");
+    //     return;
+    // }
 
     // Crear un nuevo objeto de la clase Mensaje
     const nuevoMensaje = new Mensaje(nombre, mensaje);
