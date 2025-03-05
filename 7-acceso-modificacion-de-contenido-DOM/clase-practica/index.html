@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso y modificación de Contenido del DOM</title>
+</head>
+<body>
+    <!-- <h1>Acceso y modificación de Contenido del DOM</h1>
+    <p> Acceder al Nombre de la Etiqueta: nodeName
+    La propiedad .nodeName devuelve el nombre de la etiqueta en mayúsculas. Es de solo lectura.</p>
+    <div class="container"></div>
+
+    <p>Modificar Contenido de Texto con .textContent
+    La propiedad .textContent permite obtener o modificar el contenido de texto de un elemento, ignorando cualquier marcado HTML.</p>
+    <p class="message">Mi nombre es <strong>Manz</strong>.</p>
+
+    <p>Acceso al Texto Renderizado con .innerText
+    La propiedad .innerText obtiene o modifica solo el texto visible del elemento, respetando los estilos CSS.</p>
+
+    <div class="container1">
+        <p>Hola a todos.</p>
+        <p>Me llamo <strong>Manz</strong>. <mark style="display: none">Mensaje oculto</mark></p>
+    </div>
+
+    <p>Reemplazo del Elemento con .outerText
+        La propiedad .outerText es similar a .innerText, pero al modificar reemplaza la etiqueta completa.</p>
+
+    <section><div class="container2"></div></section>
+
+    <p> Insertar Contenido HTML
+        Para insertar contenido HTML, no puedes usar .textContent o .innerText, ya que estas propiedades
+        tratan el texto literalmente. Utiliza .innerHTML para este propósito.</p>
+    <div class="container3"></div> -->
+
+
+    <!-- -------------------------PRACTICA--------------------------------------- -->
+    <!-- <div class="container">
+        <p class="hidden" style="display: none;">Texto oculto</p>
+        <p class="replace">Reemplázame</p>
+    </div> -->
+
+
+    <!-- ------------------------------------- ACCEDER A CLASES CSS ----------------------------------------- -->
+    <p>Acceder a clases CSS.... Utiliza el objeto .classList para acceder a las clases de un elemento HTML. Consulta cuántas 
+        clases tiene, conviértelas en un array y accede a una clase específica.</p>
+    <div id="page" class="info data dark" data-number="5"></div>
+
+    <!-- ------------------------------ Añadir y eliminar clases CSS -------------------------- -->
+
+    <p>Añadir y eliminar clases CSS
+    Añade nuevas clases CSS a un elemento
+    utilizando .classList.add() y elimínalas con .classList.remove(). Observa cómo cambia la lista de clases.</p>
+
+    <div id="page1" class="info data dark"></div>
+
+    <!-- ----------------------------- Comprobar si existen clases CSS ---------------------------------- -->
+
+    <P> Usa .classList.contains()
+        para verificar si un elemento tiene una clase específica.</P>
+    <div id="page3" class="info data dark"></div>
+
+    <!-- -------------------------------------- Alternar clases CSS ------------------------------------- -->
+
+    <p> Alternar clases CSS
+        Utiliza .classList.toggle() para alternar una clase en un elemento.
+        Añade la clase si no existe y elimínala si ya está presente.</p>
+
+    <div id="page4" class="info data dark"></div>
+
+    <!-- ---------------------------------------- Reemplazar una clase CSS --------------------------------- -->
+    <p>Reemplazar una clase CSS
+        Utiliza .classList.replace() para reemplazar
+        una clase existente por otra nueva.</p>
+    <div id="page5" class="info data dark"></div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

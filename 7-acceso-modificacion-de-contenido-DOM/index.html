@@ -1,12 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso y modificación de Contenido del DOM</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>Generador de Contraseñas</title>
 </head>
+
 <body>
-    <h1>Acceso y modificación de Contenido del DOM</h1>
-    <script src="script.js"></script>
+    <header>
+        <h1>Generador de Contraseñas</h1>
+    </header>
+    <main>
+        <section aria-labelledby="generated-password">
+            <p id="generated-password">Aquí aparecerá tu contraseña</p>
+        </section>
+
+        <section>
+            <form id="form-generated-password">
+                <p>
+                    <!-- <label for="password-length">Longitud contraseña</label> -->
+                    <p id="password-length-display">Longitud de la contraseña: 12</p> <!-- Mostrar longitud -->
+                    <input type="range" id="password-length" name="user_password_length" min="4" max="20" value="12"
+                        required autocomplete="off">
+                </p>
+
+                <p>
+                    <label for="include-uppercase-letters">Incluir mayúsculas</label>
+                    <input type="checkbox" id="include-uppercase-letters" name="user_uppercase_letters"
+                        title="Marcar para incluir mayúsculas">
+                </p>
+
+                <p>
+                    <label for="include-lowercase-letters">Incluir minúsculas</label>
+                    <input type="checkbox" id="include-lowercase-letters" name="user_lowercase_letters"
+                        title="Marcar para incluir minúsculas">
+                </p>
+
+                <p>
+                    <label for="include-numbers">Incluir números</label>
+                    <input type="checkbox" id="include-numbers" name="user_numbers" title="Marcar para incluir números">
+                </p>
+
+                <p>
+                    <label for="include-symbols">Incluir símbolos</label>
+                    <input type="checkbox" id="include-symbols" name="user_symbols"
+                        title="Marcar para incluir símbolos">
+                </p>
+
+                <p>
+                    <button type="button" id="generate-password">Generar</button>
+                </p>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Realizado por Emanuel Ledesma</p>
+    </footer>
+    <script src="./generador-passwords.js"></script>
 </body>
+
 </html>
