@@ -1,18 +1,20 @@
 //viajes.js
 
-export { registrarDestino, mostrarItinerario, calcularCosto };
+export { registrarDestino, mostrarItinerario, calcularCosto, calcularDescuento };
+
 
 // Array para guardar los destinos
 const destinos = [];
 
 // Función para registrar un destino de viaje
 const registrarDestino = (destino, fecha, transporte) => {
+    const costo = calcularCosto(destino, transporte)
     const nuevoViaje = {
         destino,
         fecha,
         transporte,
-        costo: calcularCosto(destino, transporte),
-        descuento: calcularDescuento(destino, transporte)
+        costo,
+        descuento: calcularDescuento(destino, transporte, costo)
     };
 
     destinos.push(nuevoViaje);
@@ -32,13 +34,10 @@ const calcularCosto = ( destino, transporte) =>{
         "Tren": 100
     };
 
-    const costoBase = (costosDestino[destino] || 0 ) + (costosTransporte[transporte] || 0);
-    const descuento = calcularDescuento(destino, transporte, costoBase)
-
-    return costoBase - descuento;
+    return (costosDestino[destino] || 0) + (costosTransporte[transporte] || 0);
 };
 
-const calcularDescuento = (destino, transporte, costoBase) =>{
+const calcularDescuento = (destino, transporte, costoBase) => {
     if (destino === "Paris" && transporte == "Tren" ) {
         return costoBase * 0.1;
     }
@@ -52,11 +51,12 @@ const mostrarItinerario = () => {
         console.log(`Destino: ${viaje.destino}`);
         console.log(`Fecha: ${viaje.fecha}`);
         console.log(`Transporte: ${viaje.transporte}`);
-        console.log(`Costo base: $${viaje.costo + (viaje.descuento || 0)}`);
+        console.log(`Costo base: $${viaje.costo}`);
         if(viaje.descuento > 0){
             console.log(`Descuento: -$${viaje.descuento}`);
-            console.log(`Total a pagar: $${viaje.costo}`);
-        };
+            console.log(`Total a pagar: $${viaje.costo - viaje.descuento}`);
+        }
+
         console.log("---------------------------");
     });
 };

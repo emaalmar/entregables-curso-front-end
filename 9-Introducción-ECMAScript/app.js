@@ -11,16 +11,16 @@ function iniciarApp() {
 
 // Ejecutar la aplicación
 iniciarApp();*/
-import { registrarDestino, mostrarItinerario, calcularCosto } from './viajes.js'
+import { registrarDestino, mostrarItinerario } from './viajes.js';
 
-const iniciarApp = ()=>{
-    registrarDestino("Paris", "2024-06-15", "Avión");
+const iniciarApp = () => {
+    registrarDestino("Paris", "2024-06-15", "Tren");
     registrarDestino("Londres", "2024-07-01", "Tren");
 
     mostrarItinerario();
 };
 
-//Ejecutar la aplicación
+// Ejecutar la aplicación
 iniciarApp();
 
 // console.log(calcularCosto("Londres", "Tren"));
