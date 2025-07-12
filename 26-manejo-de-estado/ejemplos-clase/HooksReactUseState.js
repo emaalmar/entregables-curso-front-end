@@ -1,0 +1,91 @@
+/* Hooks en React y useState
+Introducción a los Hooks en React
+Cuando React fue lanzado, los componentes se creaban principalmente con clases para manejar el estado y el ciclo de vida.Sin embargo, con la introducción de los Hooks en React 16.8, los desarrolladores ahora pueden manejar el estado y otros aspectos de React dentro de los componentes funcionales.Los Hooks permiten reutilizar lógica sin la necesidad de escribir componentes de clase, lo que hace que el código sea más limpio y fácil de mantener.
+
+Un Hook en React es simplemente una función especial que permite "engancharse" a características de React, como el estado y el ciclo de vida, desde componentes funcionales.Todos los Hooks en React comienzan con la palabra "use", como useState y useEffect.
+
+Hooks más comunes en React
+Existen varios Hooks en React, pero algunos de los más utilizados son:
+
+useState: Permite manejar el estado en componentes funcionales.
+    useEffect: Se utiliza para manejar efectos secundarios, como llamadas a API o manipulación del DOM.
+        useContext: Facilita el uso del contexto en React para compartir datos entre múltiples componentes sin necesidad de pasar props manualmente.
+            useReducer: Una alternativa a useState, útil para manejar estados más complejos.
+                useRef: Permite crear referencias a elementos del DOM o mantener valores persistentes sin causar renderizados adicionales.
+En esta lectura nos enfocaremos en el Hook useState, que es uno de los más esenciales en React.
+
+¿Qué es useState ?
+    El Hook useState permite a los componentes funcionales manejar su propio estado.Antes de los Hooks, el estado solo podía definirse dentro de los componentes de clase mediante this.state y actualizarse con this.setState.Sin embargo, con useState, se puede definir y actualizar el estado en componentes funcionales de manera más sencilla.
+
+La sintaxis básica de useState es la siguiente:
+
+import { useState } from "react";
+
+function Contador() {
+
+    const [contador, setContador] = useState(0);
+
+    return (
+
+        <div>
+
+            <p>El contador está en: {contador}</p>
+
+            <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+
+        </div>
+
+    );
+
+}
+Explicación del código:
+useState(0): Inicializa el estado con un valor de 0.
+contador: Representa el valor actual del estado.
+    setContador: Es la función que permite actualizar el estado.
+Cada vez que se hace clic en el botón, setContador(contador + 1) actualiza el estado, lo que provoca un nuevo renderizado del componente con el valor actualizado.
+Manejo de estado más complejo con useState
+El useState no solo permite manejar valores simples como números o cadenas de texto, sino también objetos y arreglos.
+
+Ejemplo con objetos:
+import { useState } from "react";
+
+function PerfilUsuario() {
+
+    const [usuario, setUsuario] = useState({ nombre: "Juan", edad: 25 });
+
+    const actualizarEdad = () => {
+
+        setUsuario({ ...usuario, edad: usuario.edad + 1 });
+
+    };
+
+    return (
+
+        <div>
+
+            <p>Nombre: {usuario.nombre}</p>
+
+            <p>Edad: {usuario.edad}</p>
+
+            <button onClick={actualizarEdad}>Cumplir años</button>
+
+        </div>
+
+    );
+
+}
+Explicación:
+El estado usuario es un objeto con propiedades nombre y edad.
+La función actualizarEdad usa setUsuario para actualizar solo la edad sin perder el resto de las propiedades del objeto, usando el operador spread(...usuario).
+Casos de uso en el mundo real
+El Hook useState es útil en una amplia variedad de aplicaciones, desde las más técnicas hasta situaciones cotidianas.Aquí algunos ejemplos:
+
+Contador de visitas en una página web: Un blog puede mostrar cuántas veces ha sido visitado un artículo.
+Lista de tareas(To - Do List): Para gestionar tareas agregadas y eliminadas por el usuario.
+Formulario de contacto: Para manejar los datos ingresados por el usuario y validar la información antes de enviarla.
+Cambio de temas en una aplicación: Para alternar entre modo claro y oscuro en una página web.
+Juegos simples: Para controlar el puntaje o las vidas restantes en un juego.
+    Conclusión
+Los Hooks en React revolucionaron la forma en que los desarrolladores manejan el estado y el ciclo de vida en los componentes.En particular, useState es un Hook fundamental que permite a los componentes funcionales gestionar su propio estado de manera sencilla y eficiente.Su uso es esencial para cualquier aplicación React, desde proyectos pequeños hasta aplicaciones web complejas.
+
+Aprender useState te permitirá construir aplicaciones interactivas y dinámicas con React, mejorando la experiencia de usuario y facilitando el mantenimiento del código. */

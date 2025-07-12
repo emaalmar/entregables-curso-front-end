@@ -24,7 +24,7 @@ Pasos para crear un proyecto con Vite:
 
 2. Crear el proyecto usando el siguiente comando en la terminal: */
 
-npm create vite @latest mi - proyecto - react --template react
+// npm create vite @latest mi - proyecto - react --template react
 
 /* 3. Instalar dependencias: */
 
