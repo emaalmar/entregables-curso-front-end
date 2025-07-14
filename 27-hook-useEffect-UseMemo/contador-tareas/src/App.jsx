@@ -6,20 +6,23 @@ function App() {
   const [duracion, setDuracion] = useState('');
   const [duracionFiltro, setDuracionFiltro] = useState('');
   const [tareasOriginales, setTareasOriginales] = useState([]);
-  const [nombreFiltro, setNombreFiltro] = usaState('');
+  const [nombreFiltro, setNombreFiltro] = useState('');
   // Efecto secundario: Actualizar el título del documento cada vez que cambia el total
   useEffect(() => {
     document.title = `Total: ${calcularTiempoTotal} minutos`;
   }, [tareas]); // Se ejecuta cada vez que las tareas cambian
 
-  useEffect(()=>{
-    if (duracionFiltro !== "") {
-      const listaFiltrada = tareasOriginales.filter(e => e.duracion >= parseInt(duracionFiltro));
-      setTareas(listaFiltrada);
-    }else{
-      setTareas(tareasOriginales);
+  useEffect(() => {
+    let lista = [...tareasOriginales];
+    if (duracionFiltro !== '') {
+      lista = lista.filter(t => t.duracion >= parseInt(duracionFiltro));
     }
-  },[duracionFiltro, tareasOriginales])
+    if (nombreFiltro !== '') {
+      lista = lista.filter(e => e.nombre.toLowerCase().includes(nombreFiltro.toLowerCase()));
+    }
+    setTareas(lista);
+
+  }, [duracionFiltro,nombreFiltro, tareasOriginales])
 
   // Cálculo de tiempo total optimizado con useMemo
   const calcularTiempoTotal = useMemo(() => {
@@ -34,7 +37,7 @@ function App() {
         nombre: nuevaTarea,
         duracion: parseInt(duracion)
       };
-      const nuevas = [... tareasOriginales, nuevaTareaObj];
+      const nuevas = [...tareasOriginales, nuevaTareaObj];
       setTareasOriginales(nuevas)
       setTareas(nuevas);
       setNuevaTarea('');
@@ -62,17 +65,28 @@ function App() {
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
           placeholder="Nombre de la tarea"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") agregarTarea();
+          }}
         />
         <input
           type="number"
           value={duracion}
           onChange={(e) => setDuracion(e.target.value)}
           placeholder="Duración en minutos"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") agregarTarea();
+          }}
         />
         <input
           type='number'
           placeholder=' Filtrar por duración'
           onChange={(e) => setDuracionFiltro(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Filtrar por nombre'
+          onChange={(e) => setNombreFiltro(e.target.value)}
         />
         <button onClick={agregarTarea}>Agregar tarea</button>
         <button onClick={eliminarTareas}>Eliminar todas las tareas</button>
