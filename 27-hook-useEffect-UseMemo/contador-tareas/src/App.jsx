@@ -5,11 +5,21 @@ function App() {
   const [nuevaTarea, setNuevaTarea] = useState('');
   const [duracion, setDuracion] = useState('');
   const [duracionFiltro, setDuracionFiltro] = useState('');
-
+  const [tareasOriginales, setTareasOriginales] = useState([]);
+  const [nombreFiltro, setNombreFiltro] = usaState('');
   // Efecto secundario: Actualizar el título del documento cada vez que cambia el total
   useEffect(() => {
     document.title = `Total: ${calcularTiempoTotal} minutos`;
-  }, [tareas]);  // Se ejecuta cada vez que las tareas cambian
+  }, [tareas]); // Se ejecuta cada vez que las tareas cambian
+
+  useEffect(()=>{
+    if (duracionFiltro !== "") {
+      const listaFiltrada = tareasOriginales.filter(e => e.duracion >= parseInt(duracionFiltro));
+      setTareas(listaFiltrada);
+    }else{
+      setTareas(tareasOriginales);
+    }
+  },[duracionFiltro, tareasOriginales])
 
   // Cálculo de tiempo total optimizado con useMemo
   const calcularTiempoTotal = useMemo(() => {
@@ -24,7 +34,9 @@ function App() {
         nombre: nuevaTarea,
         duracion: parseInt(duracion)
       };
-      setTareas([...tareas, nuevaTareaObj]);
+      const nuevas = [... tareasOriginales, nuevaTareaObj];
+      setTareasOriginales(nuevas)
+      setTareas(nuevas);
       setNuevaTarea('');
       setDuracion('');
     }
@@ -35,10 +47,10 @@ function App() {
     setTareas(vaciarLista);
   }
 
-  const filtrarPorDuracion = (filtro) => {
-    const listaFiltrada = tareas.filter(tarea => tarea.duracion >= filtro);
-    setTareas(listaFiltrada);
-  }
+  // const filtrarPorDuracion = (filtro) => {
+  //   const listaFiltrada = tareas.filter(tarea => tarea.duracion >= filtro);
+  //   setTareas(listaFiltrada);
+  // }
 
 
   return (
@@ -64,9 +76,9 @@ function App() {
         />
         <button onClick={agregarTarea}>Agregar tarea</button>
         <button onClick={eliminarTareas}>Eliminar todas las tareas</button>
-        <button onClick={() => filtrarPorDuracion(parseInt(duracionFiltro))}>
+        {/* <button onClick={() => filtrarPorDuracion(parseInt(duracionFiltro))}>
           Filtrar por duración
-        </button>
+        </button> */}
 
       </div>
 
