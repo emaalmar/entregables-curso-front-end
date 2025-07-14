@@ -22,7 +22,20 @@ function App() {
     }
     setTareas(lista);
 
-  }, [duracionFiltro,nombreFiltro, tareasOriginales])
+  }, [duracionFiltro,nombreFiltro, tareasOriginales]);
+
+  useEffect(() =>{
+    const tareasGuardadas = localStorage.getItem("misTareas");
+    if(tareasGuardadas){
+      const lista = JSON.parse(tareasGuardadas);
+      setTareasOriginales(lista);
+      setTareas(lista);
+    }
+  },[]);
+
+  useEffect (()=>{
+    localStorage.setItem("misTareas", JSON.stringify(tareasOriginales))
+  },[tareasOriginales])
 
   // Cálculo de tiempo total optimizado con useMemo
   const calcularTiempoTotal = useMemo(() => {
@@ -46,8 +59,9 @@ function App() {
   };
 
   const eliminarTareas = () => {
-    const vaciarLista = []
-    setTareas(vaciarLista);
+    setTareas([]);
+    setTareasOriginales([]);
+    localStorage.removeItem("misTareas");
   }
 
   // const filtrarPorDuracion = (filtro) => {
