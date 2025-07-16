@@ -48,6 +48,7 @@ function ListaCompras() {
         setEditandoIndex(null);
         setProductoEditado("");
     };
+    
 
     const marcarComoComprado = (index) => {
         const nuevaLista = [...productos]
@@ -95,7 +96,7 @@ function ListaCompras() {
                         {editandoIndex === index ? (
                             <>
                                 <input
-                                    value={productoEditado.nombre}
+                                    value={productoEditado}
                                     onChange={(e) => setProductoEditado(e.target.value)}
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") guardarEdicion(index);
@@ -110,7 +111,7 @@ function ListaCompras() {
                                 <button onClick={() => eliminarProducto(index)}> Eliminar</button>
                                 <button onClick={() => {
                                     setEditandoIndex(index);
-                                    setProductoEditado(producto);
+                                    setProductoEditado(producto.nombre);
                                 }}>Editar</button>
                             </>
                         )}
