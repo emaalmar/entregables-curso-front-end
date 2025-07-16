@@ -1,12 +1,17 @@
 import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 import Planeta from './Planeta';
+import FormularioPlaneta from './FormularioPlaneta';
 
 function App() {
   const [distancia, setDistancia] = useState(0);
   const [combustible, setCombustible] = useState(100);
   const [estadoNave, setEstadoNave] = useState("En órbita");
   const [planetasVisitados, setPlanetasVisitados] = useState([]);
+  const [planetas, SetPlanetas] = useState([])
+
+
+
 
   useEffect(() => {
     console.log("¡El panel está listo!"); // Montaje
@@ -36,9 +41,21 @@ function App() {
     console.log("¡Combustible actualizado!"); // Actualización
   }, [combustible]);
 
+  useEffect(() => {
+    const registroPlanetas = localStorage.getItem("planetas");
+    if (registroPlanetas) {
+      SetPlanetas(JSON.parse(registroPlanetas))
+    }
+  }, [])
+
+
   const mensajeEstado = useMemo(() => {
     return `Estado: ${estadoNave}`;
   }, [estadoNave]);
+
+  const agregarPlaneta = (planeta) => {
+    SetPlanetas([...planetas, planeta])
+  };
 
   return (
     <>
@@ -47,30 +64,35 @@ function App() {
       <p> combustible: {combustible} %</p>
       <p> {mensajeEstado}</p>
 
-      <button onClick={() => {
-        const confirmar = window.confirm("Deseas aterrizar");
-        if (confirmar) {
-          const nombrePlaneta = prompt("En que planeta?");
-          if (confirmar && nombrePlaneta.trim() !== "") {
-            setEstadoNave("Aterrizando");
-            setPlanetasVisitados([...planetasVisitados, nombrePlaneta.trim()]);
-          }
-        }
-      }}> Aterrizar </button>
-
       {/* ... (información del panel) */}
+      {planetasVisitados.map((planeta, index) => (
+        <Planeta key={index} nombre={planeta} />))}
+
+      <button
+        onClick={() => {
+          const nombrePlaneta = prompt("¿Donde quieres aterrizar?");
+          if (nombrePlaneta) {
+            setEstadoNave("Aterrizando");
+            setPlanetasVisitados([nombrePlaneta]);
+          }
+        }}
+      > Aterrizar</button>
+
+      <FormularioPlaneta onAgregar={agregarPlaneta} />
+
+      <h2>Planetas Registrados:</h2>
+
       <ul>
-        {planetasVisitados.map((planeta, index) => (
-          // <Planeta key={index} nombre={planeta} />
+        {planetas.map((planeta, index) => (
           <li key={index}>
-            planeta
+            <h3>Planeta: {planeta.nombre}</h3>
+            <p>Descripcion del planeta: {planeta.descripcion}</p>
+            {planeta.imagen && <img src={planeta.imagen} alt={planeta.nombre} width="200" />}
           </li>
         ))}
       </ul>
-
-
     </>
-  )
+  );
 }
 
 export default App
