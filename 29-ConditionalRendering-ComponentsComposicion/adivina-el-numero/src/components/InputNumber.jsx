@@ -1,13 +1,19 @@
 import React from 'react'
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 
-const InputNumber = ({value, onChange}) => {
+const InputNumber = ({ value, onChange }) => {
     return (
         <input
-            type="number"
-            placeholder='Introduce tu numero del 1 al 100'
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-        />
+    <Box sx={{ mb: 2 }}>
+      <TextField
+        label="Adivina un número"
+        type="number"
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        fullWidth
+      />
+    </Box>
     )
 }
 

@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from "react";
 
-const Message = (numero, numeroRandom) => {
+const Message = ({ numero, objetivo }) => {
+    if (numero === "") return <p>Ingresa un número para empezar</p>;
 
-    const [mensaje, setMensaje] = useState("");
+    const num = Number(numero);
 
-            useEffect(() => {
-            if (!numero) return;
+    if (isNaN(num)) return <p>Eso no es un número válido</p>;
+    if (num < objetivo) return <p>El número es mayor</p>;
+    if (num > objetivo) return <p>El número es menor</p>;
+    return <p>Correcto</p>;
 
-            if (numero > numeroRandom) {
-                setMensaje("El numero es menor");
-            } else if (numero < numeroRandom) {
-                setMensaje("El numero es mayor");
-            } else {
-                setMensaje("Ganaste")
-            }
-        }, [numero])
+    
+};
 
-    return (
-        <>
-        <p>{mensaje}</p>
-        </>
-
-    )
-}
-
-export default Message
+export default Message;

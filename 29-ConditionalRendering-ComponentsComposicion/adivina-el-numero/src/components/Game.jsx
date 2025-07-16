@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import InputNumber from './InputNumber';
+import Message from './Message';
+import RestartButton from './RestartButton';
+
+
+const generarNumero = () => Math.floor(Math.random() * 100) + 1;
 
 const Game = () => {
-    const [numero, setNumero] = useState(0);
-    const [numeroRandom, setNumeroRandom] = useState(null);
-    const [mensaje, setMensaje] = useState("");
+    const [numero, setNumero] = useState("");
+    const [numeroRandom, setNumeroRandom] = useState(generarNumero);
 
-    useEffect(() => {
-        setNumeroRandom(Math.floor(Math.random() * 100 + 1));
-    }, [])
-
-    useEffect(() => {
-        if (!numero) return;
-
-        if (numero > numeroRandom) {
-            setMensaje("El numero es menor");
-        }else if (numero < numeroRandom){
-            setMensaje("El numero es mayor");
-        }else{
-            setMensaje("Ganaste")
-        }
-    }, [numero])
+    const reiniciarJuego = () => {
+        setNumeroRandom(generarNumero());
+        setNumero("");
+    };
 
     return (
         <>
-        <InputNumber value={numero} onChange={setNumero} />
-        <p>{mensaje}</p>
+            <InputNumber value={numero} onChange={setNumero} />
+            <Message numero={numero} objetivo={numeroRandom} />
+            <RestartButton onReiniciar={reiniciarJuego} />
         </>
     );
 
