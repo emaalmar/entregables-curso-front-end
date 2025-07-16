@@ -1,16 +1,24 @@
-import React from "react";
+import Typography from '@mui/material/Typography';
 
 const Message = ({ numero, objetivo }) => {
-    if (numero === "") return <p>Ingresa un número para empezar</p>;
-
+    let mensaje = "";
     const num = Number(numero);
 
-    if (isNaN(num)) return <p>Eso no es un número válido</p>;
-    if (num < objetivo) return <p>El número es mayor</p>;
-    if (num > objetivo) return <p>El número es menor</p>;
-    return <p>Correcto</p>;
+    if (!num) {
+        mensaje = "Ingresa un número para comenzar";
+    } else if (num < objetivo) {
+        mensaje = "El número es mayor";
+    } else if (num > objetivo) {
+        mensaje = "El número es menor";
+    } else {
+        mensaje = "¡Correcto! Has adivinado el número 🎉";
+    }
 
-    
+    return (
+        <Typography variant="h6" color="primary" sx={{ my: 2 }}>
+            {mensaje}
+        </Typography>
+    );
 };
 
 export default Message;
