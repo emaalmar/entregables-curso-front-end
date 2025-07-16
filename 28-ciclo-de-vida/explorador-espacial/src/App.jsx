@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 import Planeta from './Planeta';
-import FormularioPlaneta from './FormularioPlaneta';
+import FormularioPlaneta from './components/FormularioPlaneta';
 
 function App() {
   const [distancia, setDistancia] = useState(0);
@@ -10,37 +10,6 @@ function App() {
   const [planetasVisitados, setPlanetasVisitados] = useState([]);
   const [planetas, setPlanetas] = useState([])
   const [planetaSeleccionado, setPlanetaSeleccionado] = useState(null)
-
-
-
-
-  useEffect(() => {
-    console.log("¡El panel está listo!"); // Montaje
-
-    const intervalo = setInterval(() => { // Montaje
-      setDistancia(prevCount => prevCount + 100);
-
-      setCombustible(prev => {
-        if (prev <= 1) {
-          clearInterval(intervalo);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000)
-
-    // const sinGas = setInterval(() => {
-    //   setCombustible(prevCount => prevCount - 1);
-    // }, 1000)
-    return () => {
-      clearInterval(intervalo); // Desmontaje
-      console.log("El panel se ha apagado."); // Desmontaje
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log("¡Combustible actualizado!"); // Actualización
-  }, [combustible]);
 
   useEffect(() => {
     const registroPlanetas = localStorage.getItem("planetas");
