@@ -1,8 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useCallback } from "react";
-import { useRef } from "react";
-import { useReducer } from "react";
+import { useEffect,useReducer,useRef,useCallback } from "react";
 
 const initialState = { count: 0, history: [], numeroEspecifico: 1 };
 
@@ -22,13 +18,13 @@ function reducer(state, action) {
                 history: [...state.history, state.count],
             };
         case "undo":
-            if (state.history.length === 0) return state;
+            { if (state.history.length === 0) return state;
             const lastValue = state.history[state.history.length - 1];
             return {
                 ...state,
                 count: lastValue,
                 history: state.history.slice(0, -1),
-            };
+            }; }
         case "setNumero":
             return {
                 ...state,

@@ -1,6 +1,5 @@
-import React from 'react'
-import { useEffect } from 'react';
 import { useRef } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useReducer } from 'react';
@@ -28,13 +27,25 @@ function reducer(state, action) {
         case "decrement":
             return {
                 products: state.products.map(p =>
-                    p.id === action.id ? { ...p, quantity: p.quantity - 1 } : p
+                    p.id === action.id && p.quantity > 0
+                        ? { ...p, quantity: p.quantity - 1 }
+                        : p
                 )
-            }
+            };
+
+        case "initialize":
+            return {
+                ...state,
+                products: action.payload
+            };
+
         case "remove":
             return {
                 products: state.products.filter(p => p.id !== action.id)
             };
+
+        case "Vaciar":
+            return initialState;
         default:
             return state;
     }
@@ -48,28 +59,47 @@ const InventoryManager = () => {
     const [filtroProducto, setFiltroProducto] = useState("")
 
     const handleAddProduct = () => {
+        if (state.products.some(p => p.name.toLowerCase() === inputRef.current.value.toLowerCase().trim())) {
+            alert("El producto ya existe.");
+            return;
+        }
         if (inputRef.current.value.trim() !== "") {
             dispatch({ type: "add", name: inputRef.current.value });
             inputRef.current.value = "";
         }
+
     };
 
     const handleIncrement = useCallback((id) => {
-        dispatch({
-            type: "increment",
-            id
-        }, [])
-    })
+        dispatch({ type: "increment", id });
+    }, []);
 
     const handleDecrement = useCallback((id) => {
-        dispatch({
-            type: "decrement",
-            id
-        }, [])
-    })
+        dispatch({ type: "decrement", id });
+    }, []);
 
     const productosFiltrados = state.products.filter((p) => p.name.toLowerCase().includes(filtroProducto.toLocaleLowerCase())
     );
+
+    useEffect(() => {
+        localStorage.setItem("inventario", JSON.stringify(state.products))
+    }, [state.products])
+
+
+    useEffect(() => {
+        const savedInventory = localStorage.getItem('inventario');
+
+        if (savedInventory) {
+            dispatch({
+                type: 'initialize',
+                payload: JSON.parse(savedInventory)
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, [])
 
     return (
         <>
@@ -83,6 +113,8 @@ const InventoryManager = () => {
                 }}
             />
             <button onClick={handleAddProduct}> Agregar Producto </button>
+            <h3>Eliminar</h3>
+            <button onClick={() => dispatch({ type: "Vaciar" })}>Eliminar todo el inventario</button>
 
             <h3> Filtro productos</h3>
             <input
