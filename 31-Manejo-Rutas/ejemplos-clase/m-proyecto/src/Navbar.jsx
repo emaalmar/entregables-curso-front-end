@@ -10,7 +10,7 @@ function Navbar() {
             <hr />
             <Link to="/about">Acerca de</Link>
             <hr />
-            <Link to="/user/123">Perfil Usuario</Link>
+            <Link to="/user/12">Perfil Usuario</Link>
             <hr />
 
         </nav>
